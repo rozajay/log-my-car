@@ -1,5 +1,12 @@
 import express, { Request, Response } from 'express';
 
+interface CarLog {
+  carMake: string;
+  carModel: string;
+  carBadge: string;
+  logContent: string;
+}
+
 const app = express();
 const port = 3003;
 
@@ -8,7 +15,7 @@ app.use(express.json());
 
 // POST endpoint for car logs
 app.post('/carlogs', (req: Request, res: Response) => {
-  const { carMake, carModel, carBadge, logContent } = req.body;
+  const { carMake, carModel, carBadge, logContent }: CarLog = req.body;
 
   // Perform any desired operations with the received data
   // For this example, we'll simply log the data to the console
@@ -18,8 +25,15 @@ app.post('/carlogs', (req: Request, res: Response) => {
   console.log('Car Badge:', carBadge);
   console.log('Log Content:', logContent);
 
-  // Send a response indicating successful processing
-  res.status(200).json({ message: 'Car log received successfully' });
+  // Send a response with the received data
+  const response: CarLog = {
+    carMake,
+    carModel,
+    carBadge,
+    logContent,
+  };
+
+  res.status(200).json(response);
 });
 
 // Start the server
