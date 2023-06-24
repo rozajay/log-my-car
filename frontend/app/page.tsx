@@ -119,7 +119,7 @@ const Home: React.FC = () => {
         )}
         <div className="w-full">
           <div className="text-xl font-bold mb-2">Upload logbook</div>
-          <input type="logContent" name="logContent" className="mb-4" onChange={handleChange} />
+          <input type="file" name="logContent" className="mb-4" onChange={handleChange} />
         </div>
         <button
           type="submit"
