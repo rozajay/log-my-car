@@ -16,7 +16,7 @@ const Home: React.FC = () => {
     carBadge: '',
     logContent: null,
   });
-  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [responseData, setResponseData] = useState<string | null>(null);
   const handleChange = (event: ChangeEvent<HTMLSelectElement> | ChangeEvent<HTMLInputElement>) => {
     if (event.target.type === 'logContent') {
       setFormData({
@@ -44,7 +44,8 @@ const Home: React.FC = () => {
       });
 
       if (response.ok) {
-        setIsSubmitted(true); // Set isSubmitted to true on successful response
+        const responseBody = await response.text();
+        setResponseData(responseBody); // Set the response data in state
       } else {
         console.log('Failed to submit car');
       }
@@ -67,7 +68,7 @@ const Home: React.FC = () => {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      {isSubmitted ? <div className="text-center text-green-500 font-bold">Success</div> : (
+      {responseData ? <div>{responseData}</div> : (
         <>      <h1 className="text-2xl font-bold mb-2 text-center">Select your Broom broom</h1>
           <div className="mb-4 flex space-x-4">
             <button
