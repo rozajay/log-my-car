@@ -1,4 +1,5 @@
 import express, { Request, Response } from 'express';
+import cors from 'cors';
 
 interface CarLog {
   carMake: string;
@@ -10,11 +11,19 @@ interface CarLog {
 const app = express();
 const port = 3003;
 
+const corsOptions = {
+  origin: 'http://localhost:3000',
+  methods: 'POST',
+  allowedHeaders: 'Content-Type, Authorization',
+};
+
+app.use(cors(corsOptions));
+
 // Middleware to parse JSON request bodies
 app.use(express.json());
 
 // POST endpoint for car logs
-app.post('/carlogs', (req: Request, res: Response) => {
+app.post('/api/carlogs', (req: Request, res: Response) => {
   const { carMake, carModel, carBadge, logContent }: CarLog = req.body;
 
   // Perform any desired operations with the received data

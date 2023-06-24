@@ -3,22 +3,22 @@ import React, { ChangeEvent, useState } from 'react';
 import Dropdown from './UI/Dropdown';
 
 interface FormData {
-  make: string;
-  model: string;
-  badge: string;
-  file: File | null;
+  carMake: string;
+  carModel: string;
+  carBadge: string;
+  logContent: string | null;
 }
 
 const Home: React.FC = () => {
   const [formData, setFormData] = useState<FormData>({
-    make: '',
-    model: '',
-    badge: '',
-    file: null,
+    carMake: '',
+    carModel: '',
+    carBadge: '',
+    logContent: null,
   });
-
+  const [isSubmitted, setIsSubmitted] = useState(false);
   const handleChange = (event: ChangeEvent<HTMLSelectElement> | ChangeEvent<HTMLInputElement>) => {
-    if (event.target.type === 'file') {
+    if (event.target.type === 'logContent') {
       setFormData({
         ...formData,
         [event.target.name]: event.target.files![0],
@@ -31,9 +31,26 @@ const Home: React.FC = () => {
     }
   };
 
-  const handleSubmit = (event: React.FormEvent) => {
+  const handleSubmit = async (event: React.FormEvent) => {
     event.preventDefault();
-    // Handle form submission here
+
+    try {
+      const response = await fetch('http://localhost:3003/api/carlogs', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+
+      if (response.ok) {
+        setIsSubmitted(true); // Set isSubmitted to true on successful response
+      } else {
+        console.log('Failed to submit car');
+      }
+    } catch (error) {
+      console.log('Error occurred while submitting car', error);
+    }
   };
 
   const carMakes = ['Subaru', 'Fiat', 'Suzuki'];
@@ -50,64 +67,67 @@ const Home: React.FC = () => {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      <h1 className="text-2xl font-bold mb-2 text-center">Select your Broom broom</h1>
-      <div className="mb-4 flex space-x-4">
-        <button
-          className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-md"
-          onClick={() => setFormData({ ...formData, make: 'Subaru', model: 'Impreza', badge: 'Badge1' })}
-        >
-          Subaru Impreza
-        </button>
-        <button
-          className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-md"
-          onClick={() => setFormData({ ...formData, make: 'Fiat', model: '500', badge: 'BadgeA' })}
-        >
-          Fiat 500
-        </button>
-      </div>
-      <form className="flex flex-wrap" onSubmit={handleSubmit}>
-        <div className="w-full md:w-auto md:flex-grow md:mr-4 mb-4">
-          <Dropdown
-            label="Make"
-            name="make"
-            options={carMakes}
-            value={formData.make}
-            onChange={handleChange}
-          />
-        </div>
-        {formData.make && (
-          <div className="w-full md:w-auto md:flex-grow md:mr-4 mb-4">
-            <Dropdown
-              label="Model"
-              name="model"
-              options={carModels[formData.make]}
-              value={formData.model}
-              onChange={handleChange}
-            />
+      {isSubmitted ? <div className="text-center text-green-500 font-bold">Success</div> : (
+        <>      <h1 className="text-2xl font-bold mb-2 text-center">Select your Broom broom</h1>
+          <div className="mb-4 flex space-x-4">
+            <button
+              className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-md"
+              onClick={() => setFormData({ ...formData, carMake: 'Subaru', carModel: 'Impreza', carBadge: 'Badge1' })}
+            >
+              Subaru Impreza
+            </button>
+            <button
+              className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-md"
+              onClick={() => setFormData({ ...formData, carMake: 'Fiat', carModel: '500', carBadge: 'BadgeA' })}
+            >
+              Fiat 500
+            </button>
           </div>
-        )}
-        {formData.model && (
-          <div className="w-full md:w-auto md:flex-grow mb-4">
-            <Dropdown
-              label="Badge"
-              name="badge"
-              options={carBadges[formData.make]}
-              value={formData.badge}
-              onChange={handleChange}
-            />
-          </div>
-        )}
-        <div className="w-full">
-          <div className="text-xl font-bold mb-2">Upload logbook</div>
-          <input type="file" name="file" className="mb-4" onChange={handleChange} />
-        </div>
-        <button
-          type="submit"
-          className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-md"
-        >
-          Submit
-        </button>
-      </form>
+          <form className="flex flex-wrap" onSubmit={handleSubmit}>
+            <div className="w-full md:w-auto md:flex-grow md:mr-4 mb-4">
+              <Dropdown
+                label="Make"
+                name="make"
+                options={carMakes}
+                value={formData.carMake}
+                onChange={handleChange}
+              />
+            </div>
+            {formData.carMake && (
+              <div className="w-full md:w-auto md:flex-grow md:mr-4 mb-4">
+                <Dropdown
+                  label="Model"
+                  name="carModel"
+                  options={carModels[formData.carMake]}
+                  value={formData.carModel}
+                  onChange={handleChange}
+                />
+              </div>
+            )}
+            {formData.carModel && (
+              <div className="w-full md:w-auto md:flex-grow mb-4">
+                <Dropdown
+                  label="Badge"
+                  name="carBadge"
+                  options={carBadges[formData.carMake]}
+                  value={formData.carBadge}
+                  onChange={handleChange}
+                />
+              </div>
+            )}
+            <div className="w-full">
+              <div className="text-xl font-bold mb-2">Upload logbook</div>
+              <input type="logContent" name="logContent" className="mb-4" onChange={handleChange} />
+            </div>
+            <button
+              type="submit"
+              className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-md"
+            >
+              Submit
+            </button>
+          </form> </>
+      )
+      }
     </main>
   );
 };
