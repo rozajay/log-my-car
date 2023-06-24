@@ -37,16 +37,3 @@ npm run start
 
 
 4. Open your web browser and navigate to `http://localhost:3000` to access the application.
-
-## Additional Notes
-
-- The application allows users to select car make, model, and badge options. The form data is submitted to the backend and can be viewed on the `/details` page.
-
-- The backend handles the form submission and returns the submitted data as a JSON response.
-
-- Feel free to explore the code and make any necessary adjustments or improvements.
-
-If you have any questions or need further assistance with the code submission, please feel free to reach out. Thank you for considering my submission, and I look forward to your feedback!
-
-Best regards,
-[Your Name]
