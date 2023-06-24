@@ -67,6 +67,8 @@ const Home: React.FC = () => {
     Suzuki: ['BadgeX', 'BadgeY', 'BadgeZ', 'BadgeW', 'BadgeV'],
   };
 
+  console.log({formData})
+
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
 
@@ -89,7 +91,7 @@ const Home: React.FC = () => {
         <div className="w-full md:w-auto md:flex-grow md:mr-4 mb-4">
           <Dropdown
             label="Make"
-            name="make"
+            name="carMake"
             options={carMakes}
             value={formData.carMake}
             onChange={handleChange}
