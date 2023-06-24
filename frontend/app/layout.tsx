@@ -1,12 +1,10 @@
+'use client'
 import './globals.css'
 import { Inter } from 'next/font/google'
-
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import Home from './page'
+import Details from './details'
 const inter = Inter({ subsets: ['latin'] })
-
-export const metadata = {
-  title: 'Car log',
-  description: 'submit your carlog today',
-}
 
 export default function RootLayout({
   children,
@@ -15,7 +13,14 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={inter.className}>
+        <Router>
+          <Routes>
+            <Route path="/" Component={Home} />
+            <Route path="/details" Component={Details} />
+          </Routes>
+        </Router>
+      </body>
     </html>
   )
 }

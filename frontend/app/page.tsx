@@ -1,6 +1,7 @@
 'use client'
 import React, { ChangeEvent, useState } from 'react';
 import Dropdown from './UI/Dropdown';
+import {useNavigate} from 'react-router-dom'
 
 interface FormData {
   carMake: string;
@@ -17,6 +18,7 @@ const Home: React.FC = () => {
     logContent: null,
   });
   const [responseData, setResponseData] = useState<string | null>(null);
+  const navigate = useNavigate()
   const handleChange = (event: ChangeEvent<HTMLSelectElement> | ChangeEvent<HTMLInputElement>) => {
     if (event.target.type === 'logContent') {
       setFormData({
@@ -46,6 +48,7 @@ const Home: React.FC = () => {
       if (response.ok) {
         const responseBody = await response.text();
         setResponseData(responseBody); // Set the response data in state
+        navigate('/details');
       } else {
         console.log('Failed to submit car');
       }
