@@ -1,34 +1,52 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# Autograb Code Submission
 
-## Getting Started
+Thank you for considering my code submission for the Autograb project. This README provides an overview of the submission and instructions for running the code.
 
-First, run the development server:
+## Project Overview
 
-```bash
+The code submission includes the following components:
+
+1. **Frontend:** This folder contains the frontend code for the application. It is built using React and TypeScript and includes the necessary components and styles for the form and data display.
+
+2. **Backend:** This folder contains the backend code for the application. It is built using Express and TypeScript and includes the necessary routes and logic for handling form submissions and serving the data.
+
+## Instructions
+
+To run the Autograb application, follow these steps:
+1. Clone the repository:
+```
+git clone https://github.com/your-username/autograb.git
+```
+2. Install dependencies for the frontend and backend:
+```
+cd autograb/frontend
+npm install
+
+cd ../backend
+npm install
+```
+3. Start the frontend and backend servers:
+In the frontend folder
+```
 npm run dev
-# or
-yarn dev
-# or
-pnpm dev
+```
+In the backend folder
+```
+npm run start
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+4. Open your web browser and navigate to `http://localhost:3000` to access the Autograb application.
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+## Additional Notes
 
-## Learn More
+- The Autograb application allows users to select car make, model, and badge options. The form data is submitted to the backend and can be viewed on the `/details` page.
 
-To learn more about Next.js, take a look at the following resources:
+- The backend handles the form submission and returns the submitted data as a JSON response.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+- Feel free to explore the code and make any necessary adjustments or improvements.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+If you have any questions or need further assistance with the code submission, please feel free to reach out. Thank you for considering my submission, and I look forward to your feedback!
 
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+Best regards,
+[Your Name]
