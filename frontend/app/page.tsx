@@ -1,7 +1,7 @@
 'use client'
 import React, { ChangeEvent, useState } from 'react';
 import Dropdown from './UI/Dropdown';
-import {useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 
 interface FormData {
   carMake: string;
@@ -17,7 +17,6 @@ const Home: React.FC = () => {
     carBadge: '',
     logContent: null,
   });
-  const [responseData, setResponseData] = useState<string | null>(null);
   const navigate = useNavigate()
   const handleChange = (event: ChangeEvent<HTMLSelectElement> | ChangeEvent<HTMLInputElement>) => {
     if (event.target.type === 'logContent') {
@@ -47,8 +46,7 @@ const Home: React.FC = () => {
 
       if (response.ok) {
         const responseBody = await response.text();
-        setResponseData(responseBody); // Set the response data in state
-        navigate('/details');
+        navigate('/details', { state: responseBody });
       } else {
         console.log('Failed to submit car');
       }
@@ -71,67 +69,65 @@ const Home: React.FC = () => {
 
   return (
     <main className="flex min-h-screen flex-col items-center justify-between p-24">
-      {responseData ? <div>{responseData}</div> : (
-        <>      <h1 className="text-2xl font-bold mb-2 text-center">Select your Broom broom</h1>
-          <div className="mb-4 flex space-x-4">
-            <button
-              className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-md"
-              onClick={() => setFormData({ ...formData, carMake: 'Subaru', carModel: 'Impreza', carBadge: 'Badge1' })}
-            >
-              Subaru Impreza
-            </button>
-            <button
-              className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-md"
-              onClick={() => setFormData({ ...formData, carMake: 'Fiat', carModel: '500', carBadge: 'BadgeA' })}
-            >
-              Fiat 500
-            </button>
+
+      <h1 className="text-2xl font-bold mb-2 text-center">Select your Broom broom</h1>
+      <div className="mb-4 flex space-x-4">
+        <button
+          className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-md"
+          onClick={() => setFormData({ ...formData, carMake: 'Subaru', carModel: 'Impreza', carBadge: 'Badge1' })}
+        >
+          Subaru Impreza
+        </button>
+        <button
+          className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-md"
+          onClick={() => setFormData({ ...formData, carMake: 'Fiat', carModel: '500', carBadge: 'BadgeA' })}
+        >
+          Fiat 500
+        </button>
+      </div>
+      <form className="flex flex-wrap" onSubmit={handleSubmit}>
+        <div className="w-full md:w-auto md:flex-grow md:mr-4 mb-4">
+          <Dropdown
+            label="Make"
+            name="make"
+            options={carMakes}
+            value={formData.carMake}
+            onChange={handleChange}
+          />
+        </div>
+        {formData.carMake && (
+          <div className="w-full md:w-auto md:flex-grow md:mr-4 mb-4">
+            <Dropdown
+              label="Model"
+              name="carModel"
+              options={carModels[formData.carMake]}
+              value={formData.carModel}
+              onChange={handleChange}
+            />
           </div>
-          <form className="flex flex-wrap" onSubmit={handleSubmit}>
-            <div className="w-full md:w-auto md:flex-grow md:mr-4 mb-4">
-              <Dropdown
-                label="Make"
-                name="make"
-                options={carMakes}
-                value={formData.carMake}
-                onChange={handleChange}
-              />
-            </div>
-            {formData.carMake && (
-              <div className="w-full md:w-auto md:flex-grow md:mr-4 mb-4">
-                <Dropdown
-                  label="Model"
-                  name="carModel"
-                  options={carModels[formData.carMake]}
-                  value={formData.carModel}
-                  onChange={handleChange}
-                />
-              </div>
-            )}
-            {formData.carModel && (
-              <div className="w-full md:w-auto md:flex-grow mb-4">
-                <Dropdown
-                  label="Badge"
-                  name="carBadge"
-                  options={carBadges[formData.carMake]}
-                  value={formData.carBadge}
-                  onChange={handleChange}
-                />
-              </div>
-            )}
-            <div className="w-full">
-              <div className="text-xl font-bold mb-2">Upload logbook</div>
-              <input type="logContent" name="logContent" className="mb-4" onChange={handleChange} />
-            </div>
-            <button
-              type="submit"
-              className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-md"
-            >
-              Submit
-            </button>
-          </form> </>
-      )
-      }
+        )}
+        {formData.carModel && (
+          <div className="w-full md:w-auto md:flex-grow mb-4">
+            <Dropdown
+              label="Badge"
+              name="carBadge"
+              options={carBadges[formData.carMake]}
+              value={formData.carBadge}
+              onChange={handleChange}
+            />
+          </div>
+        )}
+        <div className="w-full">
+          <div className="text-xl font-bold mb-2">Upload logbook</div>
+          <input type="logContent" name="logContent" className="mb-4" onChange={handleChange} />
+        </div>
+        <button
+          type="submit"
+          className="bg-blue-500 hover:bg-blue-600 text-white font-semibold px-4 py-2 rounded-md"
+        >
+          Submit
+        </button>
+      </form>
     </main>
   );
 };
