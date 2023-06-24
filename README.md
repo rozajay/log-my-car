@@ -12,7 +12,7 @@ The code submission includes the following components:
 
 ## Instructions
 
-To run the Autograb application, follow these steps:
+To run the application, follow these steps:
 1. Clone the repository:
 ```
 git clone https://github.com/your-username/autograb.git
@@ -36,11 +36,11 @@ npm run start
 ```
 
 
-4. Open your web browser and navigate to `http://localhost:3000` to access the Autograb application.
+4. Open your web browser and navigate to `http://localhost:3000` to access the application.
 
 ## Additional Notes
 
-- The Autograb application allows users to select car make, model, and badge options. The form data is submitted to the backend and can be viewed on the `/details` page.
+- The application allows users to select car make, model, and badge options. The form data is submitted to the backend and can be viewed on the `/details` page.
 
 - The backend handles the form submission and returns the submitted data as a JSON response.
 
