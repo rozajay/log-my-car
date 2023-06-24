@@ -11,6 +11,17 @@ interface FormData {
 }
 
 const Home: React.FC = () => {
+  const carBadges = {
+    Subaru: ['Badge1', 'Badge2', 'Badge3', 'Badge4', 'Badge5'],
+    Fiat: ['BadgeA', 'BadgeB', 'BadgeC', 'BadgeD', 'BadgeE'],
+    Suzuki: ['BadgeX', 'BadgeY', 'BadgeZ', 'BadgeW', 'BadgeV'],
+  };
+  const carMakes = ['Subaru', 'Fiat', 'Suzuki'];
+  const carModels = {
+    Subaru: ['Impreza', 'Outback', 'Forester', 'Crosstrek', 'Legacy'],
+    Fiat: ['500', 'Panda', 'Tipo', 'Bravo', 'Spider'],
+    Suzuki: ['Swift', 'Vitara', 'Ignis', 'S-Cross', 'Baleno'],
+  }
   const [formData, setFormData] = useState<FormData>({
     carMake: '',
     carModel: '',
@@ -55,16 +66,22 @@ const Home: React.FC = () => {
     }
   };
 
-  const carMakes = ['Subaru', 'Fiat', 'Suzuki'];
-  const carModels = {
-    Subaru: ['Impreza', 'Outback', 'Forester', 'Crosstrek', 'Legacy'],
-    Fiat: ['500', 'Panda', 'Tipo', 'Bravo', 'Spider'],
-    Suzuki: ['Swift', 'Vitara', 'Ignis', 'S-Cross', 'Baleno'],
-  };
-  const carBadges = {
-    Subaru: ['Badge1', 'Badge2', 'Badge3', 'Badge4', 'Badge5'],
-    Fiat: ['BadgeA', 'BadgeB', 'BadgeC', 'BadgeD', 'BadgeE'],
-    Suzuki: ['BadgeX', 'BadgeY', 'BadgeZ', 'BadgeW', 'BadgeV'],
+  const handleFileUpload = (event: ChangeEvent<HTMLInputElement>) => {
+    const file = event.target.files?.[0];
+
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e: ProgressEvent<FileReader>) => {
+        const textContent = e.target?.result as string;
+        // Use the textContent here as needed
+        console.log(textContent);
+        setFormData({
+          ...formData,
+          logContent: textContent,
+        });
+      };
+      reader.readAsText(file);
+    }
   };
 
   return (
@@ -119,7 +136,7 @@ const Home: React.FC = () => {
         )}
         <div className="w-full">
           <div className="text-xl font-bold mb-2">Upload logbook</div>
-          <input type="file" name="logContent" className="mb-4" onChange={handleChange} />
+          <input type="file" name="logContent" className="mb-4" onChange={handleFileUpload} />
         </div>
         <button
           type="submit"
