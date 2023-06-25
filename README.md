@@ -15,7 +15,7 @@ The code submission includes the following components:
 To run the application, follow these steps:
 1. Clone the repository:
 ```
-git clone https://github.com/your-username/autograb.git
+gh repo clone rozajay/log-my-car
 ```
 2. Install dependencies for the frontend and backend:
 ```
