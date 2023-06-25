@@ -37,3 +37,16 @@ npm run start
 
 
 4. Open your web browser and navigate to `http://localhost:3000` to access the application.
+![Demo](./working-prototype.gif)
+
+## Points for Further Expansion
+
+- **Form Validation:** Enhance the form validation logic to ensure that the submitted data meets specific criteria or follows certain patterns. Provide informative error messages to guide users in filling out the form correctly.
+
+- **Error Handling:** Implement robust error handling mechanisms throughout the application to handle unexpected errors and display meaningful error messages to users. Consider using middleware or global error handlers for centralized error management.
+
+- **Unit Testing:** Write unit tests using frameworks like Jest or React Testing Library to ensure the correctness of individual components, functions, and API endpoints. Aim for high test coverage to catch potential bugs or regressions.
+
+- **Localisation and Internationalisation:** Implement localisation and internationalisation features to support multiple languages and regions. Provide language options and dynamically adapt the application content based on the user's preferences.
+
+- **Performance Optimisation:** Identify and optimize performance bottlenecks within the application. Implement techniques like lazy loading, caching, and server-side rendering to improve page load times and overall performance.
